@@ -1,8 +1,10 @@
-move(1,X,Y,_) :-
-   write('Move top disk from '), write(X), write(' to '), write(Y), nl.
-move(N,X,Y,Z) :-
-   N>1,
-   M is N-1,
-   move(M,X,Z,Y),
-   move(1,X,Y,_),
-   move(M,Z,Y,X).
+hanoi(1, Source, _, Dest) :-
+    write('Move disk 1 from '), write(Source), write(' to '), write(Dest), nl.
+
+hanoi(N, Source, Aux, Dest) :-
+    N > 1,
+    M is N - 1,
+    hanoi(M, Source, Dest, Aux),
+    write('Move disk '), write(N), write(' from '), write(Source),
+    write(' to '), write(Dest), nl,
+    hanoi(M, Aux, Source, Dest).
