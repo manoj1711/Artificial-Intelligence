@@ -1,41 +1,24 @@
-symptom(amit,fever).
-    symptom(amit,rash).
-    symptom(amit,headache).
-    symptom(amit,runny_nose).
+% Define symptoms and conditions
+symptom(fever).
+symptom(cough).
+symptom(headache).
+symptom(rash).
+symptom(fatigue).
 
-    symptom(kaushal,chills).
-    symptom(kaushal,fever).
-    symptom(kaushal,hedache).
+condition(cold, [cough, fever]).
+condition(fl flu, [fever, fatigue, cough, headache]).
+condition(measles, [fever, rash]).
+condition(allergy, [rash]).
 
-    symptom(dipen,runny_nose).
-    symptom(dipen,rash).
-    symptom(dipen,flu).
+% Rule for diagnosing a condition based on symptoms
+diagnose_condition(Symptoms, Condition) :-
+    condition(Condition, RequiredSymptoms),
+    subset(RequiredSymptoms, Symptoms).
+
+% Helper predicate to check if a list is a subset of another list
+subset([], _).
+subset([H|T], List) :-
+    member(H, List),
+    subset(T, List).
 
 
-    hypothesis(Patient,measels):-
-        symptom(Patient,fever),
-        symptom(Patient,cough),
-        symptom(Patient,conjunctivitis),
-        symptom(Patient,rash),
-        write('Eat Salad').
-
-    hypothesis(Patient,german_measles) :-
-        symptom(Patient,fever),
-        symptom(Patient,headache),
-        symptom(Patient,runny_nose),
-        symptom(Patient,rash),
-        write('Avoid Oily Food').
-
-    hypothesis(Patient,flu) :-
-        symptom(Patient,fever),
-        symptom(Patient,headache),
-.        symptom(Patient,body_ache),
-        symptom(Patient,chills),
-        write('Avoid cold food').
-
-    hypothesis(Patient,common_cold) :-
-        symptom(Patient,headache),
-        symptom(Patient,sneezing),
-        symptom(Patient,sore_throat),
-        symptom(Patient,chills),
-        write('Take green vegetables').
